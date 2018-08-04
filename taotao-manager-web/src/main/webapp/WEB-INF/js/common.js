@@ -67,8 +67,19 @@ var TT = TAOTAO = {
     	$(".picFileUpload").each(function(i,e){
     		var _ele = $(e);
     		_ele.siblings("div.pics").remove();
-    		_ele.after('<div class="pics"><ul></ul></div>');
-    		
+    		_ele.after('\
+    			<div class="pics">\
+        			<ul></ul>\
+        		</div>');
+    		// 回显图片
+        	if(data && data.pics){
+        		var imgs = data.pics.split(",");
+        		for(var i in imgs){
+        			if($.trim(imgs[i]).length > 0){
+        				_ele.siblings(".pics").find("ul").append("<li><a href='"+imgs[i]+"' target='_blank'><img src='"+imgs[i]+"' width='80' height='50' /></a></li>");
+        			}
+        		}
+        	}
         	//给“上传图片按钮”绑定click事件
         	$(e).click(function(){
         		var form = $(this).parentsUntil("form").parent("form");
@@ -80,7 +91,6 @@ var TT = TAOTAO = {
 							var imgArray = [];
 							KindEditor.each(urlList, function(i, data) {
 								imgArray.push(data.url);
-								// 回显图片
 								form.find(".pics ul").append("<li><a href='"+data.url+"' target='_blank'><img src='"+data.url+"' width='80' height='50' /></a></li>");
 							});
 							form.find("[name=image]").val(imgArray.join(","));
@@ -102,7 +112,6 @@ var TT = TAOTAO = {
     			_ele.after("<span style='margin-left:10px;'></span>");
     		}
     		_ele.unbind('click').click(function(){
-    			//创建一个div标签
     			$("<div>").css({padding:"5px"}).html("<ul>")
     			.window({
     				width:'500',
@@ -120,12 +129,9 @@ var TT = TAOTAO = {
     			    			if($(this).tree("isLeaf",node.target)){
     			    				// 填写到cid中
     			    				_ele.parent().find("[name=cid]").val(node.id);
-    			    				// 将文本值显示，并设置标签(上边追加的<span)的cid属性为节点的id
     			    				_ele.next().text(node.text).attr("cid",node.id);
-    			    				
     			    				$(_win).window('close');
     			    				if(data && data.fun){
-    			    					alert(data);
     			    					data.fun.call(this,node);
     			    				}
     			    			}

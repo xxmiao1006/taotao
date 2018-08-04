@@ -1,8 +1,12 @@
 package com.Alice.service.impl;
 
 import com.Alice.common.pojo.EasyUIDataGridResult;
+import com.Alice.common.pojo.TaotaoResult;
+import com.Alice.common.utils.IDUtils;
+import com.Alice.mapper.TbItemDescMapper;
 import com.Alice.mapper.TbItemMapper;
 import com.Alice.pojo.TbItem;
+import com.Alice.pojo.TbItemDesc;
 import com.Alice.pojo.TbItemExample;
 import com.Alice.service.ItemService;
 import com.github.pagehelper.PageHelper;
@@ -10,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +26,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private TbItemMapper tbItemMapper;
+
+    @Autowired
+    private TbItemDescMapper tbItemDescMapper;
 
     public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
         //1.设置分页的信息，使用pagehelper
@@ -45,5 +53,34 @@ public class ItemServiceImpl implements ItemService {
         result.setRows(info.getList());
         //7.返回
         return result;
+    }
+
+    /**
+     * 添加商品的方法
+     * @param item
+     * @param desc
+     * @return
+     */
+    public TaotaoResult addItem(TbItem item, String desc) {
+        //生成商品id
+        long itemId = IDUtils.genItemId();
+        //补全item属性
+        item.setId(itemId);
+        item.setStatus((byte) 1);
+        item.setCreated(new Date());
+        item.setUpdated(new Date());
+        //向商品表插入数据
+        tbItemMapper.insert(item);
+        //创建一个商品描述表对应的pojo
+        //补全pojo属性
+        TbItemDesc itemDesc = new TbItemDesc();
+        itemDesc.setItemId(itemId);
+        itemDesc.setItemDesc(desc);
+        itemDesc.setCreated(new Date());
+        itemDesc.setUpdated(new Date());
+        //向商品描述表插入数据
+        tbItemDescMapper.insert(itemDesc);
+        //返回结果
+        return TaotaoResult.ok();
     }
 }
