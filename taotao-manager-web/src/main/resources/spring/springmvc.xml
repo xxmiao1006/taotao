@@ -40,7 +40,9 @@
 	<dubbo:application name="taotao-manager-web"/>
 	<dubbo:registry protocol="zookeeper" address="192.168.25.129:2181"/>
 	<dubbo:reference interface="com.Alice.service.TestService" id="testService" timeout="300000"/>
-	<dubbo:reference interface="com.Alice.service.ItemService" id="ItemService" timeout="300000"/>
-	<dubbo:reference interface="com.Alice.service.ItemCatService" id="ItemCatService" timeout="300000"/>
-    <dubbo:consumer check="false"/>
+	<dubbo:reference interface="com.Alice.service.ItemService" id="itemService" timeout="300000"/>
+	<dubbo:reference interface="com.Alice.service.ItemCatService" id="itemCatService" timeout="300000"/>
+	<dubbo:reference interface="com.Alice.content.service.ContentCategoryService" id="contentCategoryService" timeout="300000"/>
+	<dubbo:reference interface="com.Alice.content.service.ContentService" id="contentService" timeout="300000"/>
+	<dubbo:consumer check="false"/>
 </beans>

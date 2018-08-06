@@ -21,6 +21,12 @@
             <artifactId>taotao-manager-interface</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- content-interface接口 -->
+        <dependency>
+            <groupId>com.Alice</groupId>
+            <artifactId>taotao-content-interface</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
