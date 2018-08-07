@@ -21,5 +21,5 @@
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="taotao-portal-web"/>
 	<dubbo:registry protocol="zookeeper" address="192.168.25.129:2181"/>
-	<!-- <dubbo:reference interface="com.taotao.service.TestService" id="testService" timeout="300000"/>	 -->
+	<dubbo:reference interface="com.Alice.content.service.ContentService" id="contentService" timeout="300000"/>
 </beans>
