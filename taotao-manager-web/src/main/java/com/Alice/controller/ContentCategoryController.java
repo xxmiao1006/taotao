@@ -22,6 +22,11 @@ public class ContentCategoryController {
     @Autowired
     private ContentCategoryService contentCategoryService;
 
+    /**
+     * 列出所有分类信息
+     * @param parentId
+     * @return
+     */
     @RequestMapping(value = "/content/category/list",method = RequestMethod.GET)
     @ResponseBody
     public List<EasyUITreeNode> getContentCategoryList(@RequestParam(value = "id",defaultValue = "0") long parentId){
@@ -29,7 +34,7 @@ public class ContentCategoryController {
     }
 
     /**
-     * 添加节点
+     * 添加分类节点
      * @param parentId
      * @param name
      * @return

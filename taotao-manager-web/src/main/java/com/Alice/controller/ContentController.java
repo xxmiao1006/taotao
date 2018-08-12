@@ -19,6 +19,11 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
+    /**
+     * 添加内容
+     * @param content
+     * @return
+     */
     @RequestMapping(value = "/content/save",method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult saveContent(TbContent content){

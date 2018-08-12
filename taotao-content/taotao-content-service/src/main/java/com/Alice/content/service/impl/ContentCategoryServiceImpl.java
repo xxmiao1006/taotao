@@ -17,9 +17,6 @@ import com.Alice.pojo.TbContentCategoryExample.Criteria;
 
 /**
  * 内容分类管理service
- * <p>Title: ContentCategoryServiceImpl</p>
- * <p>Description: </p>
- * <p>Company: www.itcast.cn</p> 
  * @version 1.0
  */
 @Service
@@ -66,8 +63,8 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 		category.setStatus(1);
 		category.setUpdated(category.getCreated());
 		//2.插入contentCategory表数据
-		mapper.insertSelective(category);
 		//3.返回taotaoresult包含内容分类的id;  需要主键返回
+		mapper.insertSelective(category);
 
 		//判断父节点是叶子节点，需要更新其为父节点
 		TbContentCategory parent = mapper.selectByPrimaryKey(parentId);

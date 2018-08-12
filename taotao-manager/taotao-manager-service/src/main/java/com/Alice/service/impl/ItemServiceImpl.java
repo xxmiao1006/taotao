@@ -30,6 +30,12 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private TbItemDescMapper tbItemDescMapper;
 
+    /**
+     * 分页查询所有商品
+     * @param page
+     * @param rows
+     * @return
+     */
     public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
         //1.设置分页的信息，使用pagehelper
         if (page == null) {

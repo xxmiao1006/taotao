@@ -21,7 +21,11 @@ public class TestController {
 
 	@Autowired
 	private TestService testservice;
-	
+
+	/**
+	 * 测试
+	 * @return
+	 */
 	@RequestMapping("/test/qureyNow")
 	@ResponseBody
 	public String queryNow(){
