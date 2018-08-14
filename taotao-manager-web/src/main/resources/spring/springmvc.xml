@@ -44,5 +44,6 @@
 	<dubbo:reference interface="com.Alice.service.ItemCatService" id="itemCatService" timeout="300000"/>
 	<dubbo:reference interface="com.Alice.content.service.ContentCategoryService" id="contentCategoryService" timeout="300000"/>
 	<dubbo:reference interface="com.Alice.content.service.ContentService" id="contentService" timeout="300000"/>
+	<dubbo:reference interface="com.Alice.search.service.SearchService" id="searchService" timeout="300000"/>
 	<dubbo:consumer check="false"/>
 </beans>
