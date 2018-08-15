@@ -23,4 +23,6 @@ public interface SearchService {
      */
     SearchResult search(String queryString ,Integer page,Integer rows) throws Exception;
 
+    TaotaoResult updateItemById(Long itemId) throws Exception;
+
 }

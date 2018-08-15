@@ -14,4 +14,7 @@ public interface SearchItemMapper {
     //查询所有商品的数据
     List<SearchItem> getSearchItemList();
 
+    //根据商品的id查询商品的数据
+    SearchItem getSearchItemById(Long itemId);
+
 }

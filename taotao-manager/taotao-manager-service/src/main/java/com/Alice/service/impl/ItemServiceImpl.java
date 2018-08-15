@@ -12,8 +12,15 @@ import com.Alice.service.ItemService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +36,12 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private TbItemDescMapper tbItemDescMapper;
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    @Resource(name="itemAddtopic")
+    private Destination destination;
 
     /**
      * 分页查询所有商品
@@ -69,7 +82,7 @@ public class ItemServiceImpl implements ItemService {
      */
     public TaotaoResult addItem(TbItem item, String desc) {
         //生成商品id
-        long itemId = IDUtils.genItemId();
+        final long itemId = IDUtils.genItemId();
         //补全item属性
         item.setId(itemId);
         item.setStatus((byte) 1);
@@ -86,6 +99,15 @@ public class ItemServiceImpl implements ItemService {
         itemDesc.setUpdated(new Date());
         //向商品描述表插入数据
         tbItemDescMapper.insert(itemDesc);
+
+        //添加发送消息的业务逻辑
+        jmsTemplate.send(destination, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                return session.createTextMessage(itemId+"");
+            }
+        });
+
         //返回结果
         return TaotaoResult.ok();
     }

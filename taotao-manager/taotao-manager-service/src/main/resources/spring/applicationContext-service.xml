@@ -22,4 +22,26 @@
 	<dubbo:service interface="com.Alice.service.ItemService" ref="itemServiceImpl" />
 	<dubbo:service interface="com.Alice.service.ItemCatService" ref="itemCatServiceImpl" />
 
+
+	<!--avtiveMQ配置-->
+	<!-- JMS服务厂商提供的ConnectionFactory -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<constructor-arg name="brokerURL" value="tcp://192.168.25.129:61616"/>
+	</bean>
+	<!-- spring对象ConnectionFactory的封装 -->
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+	</bean>
+	<!-- 配置JMSTemplate -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"/>
+	</bean>
+	<!-- 配置消息的Destination对象 -->
+	<!--<bean id="test-queue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg name="name" value="test-queue"/>
+	</bean>-->
+	<bean id="itemAddtopic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg name="name" value="item-add-topic"/>
+	</bean>
+
 </beans>
