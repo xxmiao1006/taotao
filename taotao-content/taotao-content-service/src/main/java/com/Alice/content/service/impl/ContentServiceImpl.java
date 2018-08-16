@@ -71,7 +71,6 @@ public class ContentServiceImpl implements ContentService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         //1.注入mapper
         //2.创建example
         TbContentExample example = new TbContentExample();

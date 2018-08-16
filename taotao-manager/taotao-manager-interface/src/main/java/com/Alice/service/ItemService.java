@@ -3,6 +3,7 @@ package com.Alice.service;
 import com.Alice.common.pojo.EasyUIDataGridResult;
 import com.Alice.common.pojo.TaotaoResult;
 import com.Alice.pojo.TbItem;
+import com.Alice.pojo.TbItemDesc;
 
 /**
  * 商品相关的service接口
@@ -22,5 +23,9 @@ public interface ItemService {
 
 
     TaotaoResult addItem(TbItem item,String desc);
+
+    TbItem getItemById(long itemId);
+
+    TbItemDesc getItemDescById(long itemId);
 
 }
